@@ -73,3 +73,17 @@ I am developing toward roles that combine:
 ---
 
 **Bay Area, California** · Building practical AI systems one project at a time.
+
+## License and competition judging
+
+Copyright (c) 2026 Atoosa Biglari.
+
+Original owner-controlled materials are available under **[CC BY-NC 4.0](LICENSE)**.
+Noncommercial learning, modification, and redistribution are permitted under
+the license; keep the required credit and notices. Commercial uses outside the
+license's permitted purposes require separate written permission.
+
+Authorized competition judges and organizers have additional free testing and
+evaluation permission in [JUDGING_PERMISSION.md](JUDGING_PERMISSION.md).
+See [LICENSING.md](LICENSING.md) for scope and third-party exclusions and
+[LICENSE_HISTORY.md](LICENSE_HISTORY.md) for preserved earlier permissions.
