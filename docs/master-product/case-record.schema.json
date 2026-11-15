@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/atoosabiglari-PM/atoosabiglari-PM/main/docs/master-product/case-record.schema.json",
-  "title": "CaseRecord 0.1.1",
+  "title": "CaseRecord 0.1.2",
   "description": "Structural contract only. Validation does not authenticate identities, validate grants, enforce policy, prove effects, or authorize execution.",
   "type": "object",
   "properties": {
     "contract_version": {
-      "const": "0.1.1"
+      "const": "0.1.2"
     },
     "record_kind": {
       "enum": [
@@ -436,6 +436,23 @@
         },
         "action": {
           "$ref": "#/$defs/action"
+        },
+        "identity_assignment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "record": {
+              "$ref": "#/$defs/recordRef"
+            },
+            "revision": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "record",
+            "revision"
+          ]
         }
       },
       "required": [
@@ -452,7 +469,8 @@
         "domain_findings",
         "evidence_manifest",
         "required_approver_role",
-        "action"
+        "action",
+        "identity_assignment"
       ],
       "additionalProperties": false
     },

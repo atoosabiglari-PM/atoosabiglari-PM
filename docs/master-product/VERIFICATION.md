@@ -9,7 +9,7 @@ Checked November 15, 2026.
 - Real SHA-256 checks against all referenced synthetic fixture bytes.
 - RFC 8785 precondition digest recomputation.
 - ChronicleGraph source fingerprint and JSON Pointer resolution.
-- Eleven negative mutations rejected: untrusted auth_verified field, missing executor, malformed digest, changed target, changed artifact, changed policy, approval without proof fields, synthetic execution claim, negative count, case-ID mismatch and duplicate domain component.
+- Thirteen negative mutations rejected: untrusted auth_verified field, missing executor, missing identity assignment, changed identity assignment, malformed digest, changed target, changed artifact, changed policy, approval without proof fields, synthetic execution claim, negative count, case-ID mismatch and duplicate domain component.
 
 Reproduce with the pinned validation requirements and validate_contract.py.
 

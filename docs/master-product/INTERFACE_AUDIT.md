@@ -19,7 +19,7 @@ Read-only source inspection on November 15, 2026. This is an initial interface m
 - RightsReady intentionally permits structurally trusted records with clearance gaps to be ingested for review. Its trusted-ingestion status must not become permission for an unrelated export. Its clearance engine also needs nonempty applicable-use coverage enforced by the new adapter.
 - DecisionReady checks change identity and readiness before approved baseline promotion. Its README describes a single-session prototype with persistent multi-user storage still beyond that build.
 - SafetyGate's identity helper keys trusted role assignments by issuer and subject. Its execution store persists claims and marks stale pending attempts uncertain. Its README explicitly says the implemented OIDC path is not yet bound to a specific production identity provider at the application API boundary.
-- No claim is made that these APIs already accept CaseRecord 0.1.1 or that all export paths are covered.
+- No claim is made that these APIs already accept CaseRecord 0.1.2 or that all export paths are covered.
 
 ## P0 boundary inventory
 

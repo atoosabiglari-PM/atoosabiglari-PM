@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.1.1",
+  "contract_version": "0.1.2",
   "record_kind": "SYNTHETIC_EXAMPLE",
   "case_id": "case-synthetic-001",
   "revision": 1,
@@ -119,10 +119,17 @@
       "target_resource": "fixture://pilot-exports/clean.csv",
       "target_namespace": "pilot-exports",
       "write_condition": "CREATE_ONLY"
+    },
+    "identity_assignment": {
+      "record": {
+        "uri": "fixture://fixtures/identity-assignment.json",
+        "sha256": "22efaa632e43250622bc2f68603e21b012f4213273ba25e5449cb58ce43ab30c"
+      },
+      "revision": "1"
     }
   },
   "canonicalization": "RFC8785",
-  "bound_preconditions_sha256": "9ffeb44457564ffb2fd061c43ec5483f135c7af13d7d29e0980c69eed0b7cc61",
+  "bound_preconditions_sha256": "8b7c42a54e94ffc15e11eaadf804c28ae684aaadd9ff13496ec60b1028ef9214",
   "authorization": {
     "status": "PENDING",
     "approver": null,

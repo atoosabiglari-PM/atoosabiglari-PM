@@ -41,6 +41,7 @@ def validate_case(case):
     for artifact in p["inputs"] + [p["candidate"]]:
         read_ref(artifact["content"])
     read_ref(p["permission"]["record"])
+    read_ref(p["identity_assignment"]["record"])
     for policy in p["policies"]:
         read_ref(policy["record"])
     for finding in findings:
@@ -66,6 +67,8 @@ def main():
     mutations = [
         ("untrusted auth_verified flag", lambda x: x["preconditions"]["executor"].update(auth_verified=True)),
         ("missing executor", lambda x: x["preconditions"].pop("executor")),
+        ("missing identity assignment", lambda x: x["preconditions"].pop("identity_assignment")),
+        ("identity assignment changed after binding", lambda x: x["preconditions"]["identity_assignment"].update(revision="2")),
         ("malformed hash", lambda x: x.update(bound_preconditions_sha256="not-a-hash")),
         ("target changed after binding", lambda x: x["preconditions"]["action"].update(target_resource="fixture://other/export.csv")),
         ("artifact changed after binding", lambda x: x["preconditions"]["inputs"][0]["content"].update(sha256="0"*64)),
@@ -92,7 +95,7 @@ def main():
             print("REJECTED:", name)
         else:
             raise AssertionError("Mutation accepted: " + name)
-    print("PASS: schema, synthetic fixture, hashes, evidence locator, and 11 negative cases.")
+    print("PASS: schema, synthetic fixture, hashes, evidence locator, and 13 negative cases.")
     print("NOT TESTED: real identity, grant signatures, live revocation/time, runtime gates, storage effects, or end-to-end integration.")
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# CaseRecord 0.1.1 contract semantics
+# CaseRecord 0.1.2 contract semantics
 
 The JSON Schema uses Draft 2020-12 and rejects undeclared properties. It describes data structure. Runtime trust comes from authenticated producers and independently verified evidence, not a client-supplied boolean such as authoritative or auth_verified.
 
@@ -17,7 +17,7 @@ All fixture sources are local, synthetic and resolvable through fixture-manifest
 Compute SHA-256 over RFC 8785 canonical bytes of the entire preconditions object. Do not substitute an arbitrary JSON serializer. The object includes:
 
 - Case ID/revision, workflow and purpose.
-- Initiator and executing identity references.
+- Initiator and executing identity references, plus the application identity-assignment record and revision.
 - Every input and candidate version/fingerprint.
 - Permission record and scope, validity interval and revocation lookup.
 - Policy versions/fingerprints and component/evidence references.
@@ -40,7 +40,7 @@ Durably claim a key scoped to the tenant/case/action and bind it to the exact re
 
 After timeout or crash, retain UNCERTAIN. Query the destination and independent observer using the action identifier, expected content and receipt before deciding whether execution succeeded, failed or remains unknown. Do not blindly issue another write. Prevent overwrite and deletion/recreation paths from defeating the chosen idempotency guarantee.
 
-The initial plan is storage-provider neutral. S3 conditional writes are one possible backend primitive, not a selected dependency or a complete exactly-once protocol.
+The selected V1 protected destination is a small immutable CSV artifact in the same PostgreSQL database as the authority registry and ledger. The concrete protocol, acceptance-time semantics and revocation cutoff are specified in the complete plan. A remote object-store adapter requires its own verified protocol; S3 conditional writes alone are not a complete exactly-once protocol.
 
 ## Metrics
 

@@ -1,0 +1,21 @@
+{
+  "record_kind": "SYNTHETIC_IDENTITY_ASSIGNMENT_FIXTURE",
+  "revision": "1",
+  "assignments": [
+    {
+      "issuer": "https://identity.example.invalid",
+      "subject": "human-reviewer",
+      "roles": [
+        "pilot_export_approver"
+      ]
+    },
+    {
+      "issuer": "https://identity.example.invalid",
+      "subject": "export-service",
+      "roles": [
+        "pilot_export_executor"
+      ]
+    }
+  ],
+  "notice": "Illustrative assignments only. No actual identity was authenticated."
+}

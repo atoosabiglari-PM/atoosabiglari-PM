@@ -1,7 +1,7 @@
 {
   "fixture://case-record.schema.json": {
     "path": "case-record.schema.json",
-    "sha256": "880907dc17ff1bc48585eedc28d7b297afb89e8001f6ddd8a46a54fb3ee66355"
+    "sha256": "18e7262215ec55be3d93a76a742f1c7bca3850c85ba72d4720d7e1fb9382d96d"
   },
   "fixture://fixtures/input.csv": {
     "path": "fixtures/input.csv",
@@ -41,6 +41,10 @@
   },
   "fixture://examples/case-awaiting-approval.json": {
     "path": "examples/case-awaiting-approval.json",
-    "sha256": "1b779768f959b47fae573ed895f0c0f130ebfdba6946d11d19402f8cca93ab85"
+    "sha256": "6467fea9f00f944eb37e94ac30a6b714f621735f60c1459660eaaaf9b0f40040"
+  },
+  "fixture://fixtures/identity-assignment.json": {
+    "path": "fixtures/identity-assignment.json",
+    "sha256": "22efaa632e43250622bc2f68603e21b012f4213273ba25e5449cb58ce43ab30c"
   }
 }
