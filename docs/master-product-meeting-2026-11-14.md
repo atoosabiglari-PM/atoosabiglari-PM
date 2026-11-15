@@ -2,7 +2,7 @@
 
 Public review copy for Atoosa, Gemini, Grok and other readers. The meeting record is self-contained. Some underlying project sources remain private; the relevant findings and proposals are included here. Publication of these minutes does not grant access to private repositories or research archives.
 
-**Meeting minutes and product planning record — revision 2.** Discussion: November 14, 2026, Pacific; revised November 15, 2026, UTC. Founder and decision owner: Atoosa Biglari. Gemini and Grok supplied reviews shared by Atoosa; ChatGPT synthesized the discussion and earlier checks of project materials. This revision incorporates Atoosa's clarification that all current discussion belongs to the master product, regardless of Apollo participation. Confirmed directions and proposed technical decisions are identified separately.
+**Meeting minutes and product planning record — revision 3.** Discussion: November 14, 2026, Pacific; revised November 15, 2026, UTC. Founder and decision owner: Atoosa Biglari. Gemini and Grok supplied reviews shared by Atoosa; ChatGPT synthesized the discussion and earlier checks of project materials. This revision incorporates Atoosa's clarification that all current discussion belongs to the master product, regardless of Apollo participation. Confirmed directions and proposed technical decisions are identified separately. The final planning package consolidates the subsequent Gemini/Grok refinements; it specifies Workflow A as the first integrated pilot.
 
 **The product is the work we are doing now.** Its purpose is to help people use AI with traceable evidence, explicit permissions, understandable decisions and controlled actions. All six projects and the research discussed today belong in its present product plan. Apollo may use the resulting product story, evidence and demonstration; it does not determine the scope of this meeting or make product development conditional on admission. A complete plan can support both the product and an Apollo application. The combined system has not yet been verified end to end.
 
@@ -46,13 +46,13 @@ Gemma's injected-context results were attempts 16/24 in both arms, confirmed pro
 
 **Working description:** A governed AI workspace for turning a request into an evidence-backed proposal, an accountable decision and a permitted action. RightsReady contributes use permissions; DataReady contributes data checks and constrained repairs; ChronicleGraph contributes claim and source relationships; DecisionReady contributes change review; SafetyGate contributes enforcement; Gemma Research contributes evaluation. A coordinating layer connects their records and interfaces without replacing their separate responsibilities.
 
-**Candidate first customer:** a data or AI operations team preparing a dataset for downstream use. A proposed buyer is its data or AI operations lead. The concrete problem is reviewing an AI-assisted change and controlling its export while preserving the original and the supporting evidence. This is a starting hypothesis, not an adopted limit on customers or workflows. Compare it with evidence-backed research and governed coding/change workflows using actual customer pain, available capabilities and evaluation feasibility. Demand, willingness to pay and revenue remain unvalidated.
+**Initial customer hypothesis:** a data or AI operations team preparing a dataset for downstream use. A proposed buyer is its data or AI operations lead. The concrete problem is reviewing an AI-assisted change and controlling its export while preserving the original and the supporting evidence. This is a starting hypothesis, not an adopted limit on customers or workflows. Compare it with evidence-backed research and governed coding/change workflows using actual customer pain, available capabilities and evaluation feasibility. Demand, willingness to pay and revenue remain unvalidated.
 
 **Business model hypothesis:** a paid team workspace or design-partner pilot, with bounded usage. Do not invent prices, customer commitments, revenue or market-validation claims.
 
-**Recommended first integrated demonstration:** take one supported tabular dataset through permission review, audit, constrained repair, evidence review, scoped approval and controlled export. DataReady's existing audit → proposal → independent check → approval → separate export workflow offers a reusable starting point. The surrounding cross-product connections are proposed work. An authorized export, a rejected action and a changed prerequisite should each produce observable outcomes. This recommendation is based on reuse and measurability, not Apollo's application schedule.
+**Selected first pilot in the final delivery plan:** take one supported tabular dataset through permission review, audit, constrained repair, evidence review, scoped approval and controlled export. DataReady's existing audit → proposal → independent check → approval → separate export workflow offers a reusable starting point. The surrounding cross-product connections are proposed work. An authorized export, a rejected action and a changed prerequisite should each produce observable outcomes. This recommendation is based on reuse and measurability, not Apollo's application schedule.
 
-**Shared case contract — proposed:** give every workflow a case ID and a versioned record containing the initiating actor and requested purpose; input references and fingerprints; recorded permission scope; data findings and proposed changes; claim/source anchors and uncertainty; policy and evaluator versions; review state; authenticated approver identity; the exact action, target, permitted scope and expiry; execution identifier and result; and references to observed effects. Minimize stored sensitive content. Link records rather than copy private raw data unnecessarily. Each component remains authoritative for its own findings.
+**Shared case contract — proposed:** give every workflow a case ID and a versioned record containing the initiating actor and requested purpose; input references and fingerprints; recorded permission scope; data findings and proposed changes; claim/source anchors and uncertainty; policy and evaluator versions; review state; authenticated approver identity; the exact action, target, permitted scope and expiry; execution identifier and result; and references to observed effects. Minimize stored sensitive content. Link records rather than copy private raw data unnecessarily. Each component remains authoritative for its own findings. The concrete CaseRecord 0.1.1 schema, synthetic evidence example and execution semantics are in the [final plan](https://github.com/atoosabiglari-PM/atoosabiglari-PM/blob/main/docs/master-product/README.md). Schema validation is not runtime authorization.
 
 **Infrastructure remains a product choice.** Compare providers against model availability, output validity, task performance, latency, cost, data handling and deployment needs. A 0G adapter is one optional integration candidate if it supports the product and an Apollo application. Self-hosting is another candidate requiring separate engineering and deployment validation. No provider integration, air-gapped deployment or privacy guarantee is established by the existing Gemma experiment.
 
@@ -77,7 +77,7 @@ The coordinator chooses applicable modules for the workflow. It does not mark an
 
 2. An action outside permitted scope is blocked before the protected effect.
 
-3. A changed artifact or revoked permission prevents reuse of a stale approval.
+3. Material changes to an input, candidate, permission, policy, executing identity or approved scope invalidate the applicable approval and require reevaluation. Independently check current permission/grant expiry and revocation even when all hashes remain unchanged.
 
 4. A malformed proposal or unavailable required checker produces an explicit blocked or review state.
 
@@ -85,7 +85,7 @@ The coordinator chooses applicable modules for the workflow. It does not mark an
 
 6. A failed or uncertain execution is recorded without claiming success; retry behavior is tested.
 
-7. Tests report task completion, attempted violations, confirmed effects, false blocks and review burden with denominators.
+7. Every run records task outcome, attempted violations, confirmed effects, false blocks, human review steps and observation completeness. Aggregates report rates with explicit denominators and unknown/excluded counts. Repair success applies only to repair tasks.
 
 **First-release outcome:** one genuinely connected, repeatable workflow with evidence for both successful and rejected actions. The whole six-project architecture and research program remain in scope while implementation proves these interfaces incrementally.
 
@@ -96,7 +96,7 @@ The coordinator chooses applicable modules for the workflow. It does not mark an
 | Product scope | Work on the complete master product now, independent of Apollo | Confirmed by Atoosa |
 | Composition | Include RightsReady, DataReady, ChronicleGraph, DecisionReady, SafetyGate and Gemma Research | Confirmed by Atoosa |
 | Human agency | People can understand proposals, inspect evidence, intervene and exercise authorized approval | Standing requirement |
-| First workflow | Begin with a governed data-change/export workflow; compare alternatives before locking the pilot | Recommended |
+| First workflow | Workflow A: governed data change/export, following the candidate comparison | Selected in the final delivery plan |
 | Integration approach | Shared case contract plus narrow adapters; preserve each component's authority | Proposed technical decision |
 | Research | Include the full research portfolio in the product plan; sequence experiments by prerequisites | Scope retained; experiment designs proposed |
 | Evaluation | Report task utility, attempted violations and confirmed effects separately; also measure review burden and false blocks | Recommended acceptance framework |
@@ -109,8 +109,8 @@ The coordinator chooses applicable modules for the workflow. It does not mark an
 
 | Class | Work |
 | --- | --- |
-| Must have | One defined user problem; truthful inventory of existing capabilities; shared case/evidence contract; independent checks; identity-bound, scoped approvals for consequential actions; enforcement on supported paths; observable outcomes and failure handling; preservation of original data and license boundaries |
-| Should have | A tested integrated workflow; claim/source traceability; post-approval change and revocation checks; repeatable evaluations; customer feedback; understandable recovery and appeal paths |
+| Must have | One defined user problem; truthful inventory of existing capabilities; shared case/evidence contract; independent checks; verified approver and executor identities linked by scoped authorization before consequential actions; post-approval change, expiry and revocation checks; enforcement on supported paths; observable outcomes and failure handling; preservation of original data and license boundaries |
+| Should have | A tested integrated workflow; claim/source traceability; repeatable evaluations; customer feedback; understandable recovery and appeal paths |
 | Could have | Additional workflow adapters, provider comparisons, richer evidence browsing and reviewed examples for future model studies |
 | Won't have in the first implementation | Universal control over every prompt or external tool; blanket truth or legal-compliance certification; automatic training from unreviewed approval logs; an unsupported claim that all six components are production-ready |
 | Included research, staged by dependencies | Unseen-task/model evaluations, adaptive attacks, retained prohibited code, delegated authority, valid-credential abuse, false restrictions, appeals, and controlled post-training experiments |
@@ -137,9 +137,10 @@ The coordinator chooses applicable modules for the workflow. It does not mark an
 | Priority | Action | Proposed owner | Completion evidence and current state |
 | --- | --- | --- | --- |
 | P0 | Complete and reconcile the six-project meeting record, including the research discussion | Assistant | This revised record; planning deliverable |
-| P0 | Select the first user problem and compare candidate workflows | Atoosa, with assistant analysis | A short problem statement and measurable pilot acceptance cases; proposed next decision |
-| P0 | Map existing interfaces, tests, license boundaries and missing capabilities | Assistant | Repository-grounded capability/gap matrix; implementation audit still required |
-| P0 | Specify the shared case contract and component adapters | Assistant | Versioned schema, example records and interface responsibilities; proposed engineering work |
+| P0 | Select the first workflow and define pilot acceptance cases | Atoosa, with assistant analysis | Workflow A selected in the final plan; customer demand remains a hypothesis |
+| P0 | Map existing interfaces, tests, license boundaries and missing capabilities | Assistant | Repository-grounded capability/gap matrix; initial source inspection complete in the final plan; runtime verification remains required |
+| P0 | Specify the shared case contract and component adapters | Assistant | CaseRecord 0.1.1 schema, synthetic example and initial interface map prepared; adapters pending |
+| P0 | Inventory artifacts crossing component boundaries | Assistant | Recipient, purpose, permission/restriction and retention recorded for code, data, evidence, model payloads and logs; initial inventory in the final plan |
 | P0 | Establish baseline outcomes and adversarial/changed-prerequisite test cases | Assistant | Reproducible evaluations with separate utility, attempt and effect measures; proposed engineering work |
 | P1 | Implement and verify one complete workflow with human review and supported enforcement | Assistant; Atoosa provides user feedback | Observed allowed, blocked, stale-approval and recovery outcomes; not implemented by these minutes |
 | P1 | Validate demand and a paid-pilot hypothesis | Atoosa with assistant preparation | Actual interview or pilot evidence, not assumed traction |
@@ -179,3 +180,4 @@ If Atoosa pursues Apollo, use a truthful snapshot of this product's verified cap
 - Larry Page Project Mother File (private source, summarized in the ChronicleGraph sections above).
 
 - Atoosa's messages and the Gemini/Grok reviews shared in this discussion.
+

@@ -1,0 +1,149 @@
+{
+  "contract_version": "0.1.1",
+  "record_kind": "SYNTHETIC_EXAMPLE",
+  "case_id": "case-synthetic-001",
+  "revision": 1,
+  "case_state": "AWAITING_APPROVAL",
+  "created_at": "2026-11-15T00:00:00Z",
+  "preconditions": {
+    "case_id": "case-synthetic-001",
+    "case_revision": 1,
+    "workflow": "governed_tabular_repair_export",
+    "purpose": "internal_analytics",
+    "initiator": {
+      "issuer": "https://identity.example.invalid",
+      "subject": "human-requester",
+      "credential_evidence_ref": "fixture://not-a-verified-credential/human-requester"
+    },
+    "executor": {
+      "issuer": "https://identity.example.invalid",
+      "subject": "export-service",
+      "credential_evidence_ref": "fixture://not-a-verified-credential/export-service"
+    },
+    "inputs": [
+      {
+        "artifact_id": "input-001",
+        "version": "1",
+        "content": {
+          "uri": "fixture://fixtures/input.csv",
+          "sha256": "5da3c3bbe730869dfb1b8e1a887614f1d05236b953eccaac04a4066928813524"
+        }
+      }
+    ],
+    "candidate": {
+      "artifact_id": "candidate-001",
+      "version": "1",
+      "content": {
+        "uri": "fixture://fixtures/candidate.csv",
+        "sha256": "31475a9065853e61c6117db9fa5c1b2a2dd6baf3f5374e217500deb5efcb4d8c"
+      }
+    },
+    "permission": {
+      "record": {
+        "uri": "fixture://fixtures/permission.json",
+        "sha256": "72a699bbb4fda5e3d2242509ecb4e4da5d23b265d636daf4f255dcba9371af11"
+      },
+      "revision": "1",
+      "valid_from": "2026-11-15T00:00:00Z",
+      "expires_at": "2026-11-16T00:00:00Z",
+      "allowed_purposes": [
+        "internal_analytics"
+      ],
+      "allowed_destinations": [
+        "fixture://pilot-exports/clean.csv"
+      ],
+      "revocation_lookup_ref": "fixture://permission-registry/permission-001"
+    },
+    "policies": [
+      {
+        "policy_id": "pilot-export",
+        "version": "1",
+        "record": {
+          "uri": "fixture://fixtures/policy.json",
+          "sha256": "e81b3f9c6f194c51e9806e16ad3b27cf13d11d901426ded88ead705c2e3828c2"
+        }
+      }
+    ],
+    "domain_findings": [
+      {
+        "component": "rights_ready",
+        "producer_id": "fixture-producer",
+        "adapter_version": "design-0.1.1",
+        "source_commit": "a8d9e2d6c2d494b9d958d8347d13c28fb46c0c0c",
+        "finding": {
+          "uri": "fixture://fixtures/rights_ready-finding.json",
+          "sha256": "633846dee03d602a9265ccab5955b00bf46d369af2a4b2d243ccfa83c88731db"
+        }
+      },
+      {
+        "component": "data_ready",
+        "producer_id": "fixture-producer",
+        "adapter_version": "design-0.1.1",
+        "source_commit": "b77ece50b2a79a24ab093b3f5a53d0e39cd64cc3",
+        "finding": {
+          "uri": "fixture://fixtures/data_ready-finding.json",
+          "sha256": "65b44cf73859ae921e914e4b8689273e8ef740a1ef81d13cb5ffeda63d4552ab"
+        }
+      },
+      {
+        "component": "chronicle_graph",
+        "producer_id": "fixture-producer",
+        "adapter_version": "design-0.1.1",
+        "source_commit": null,
+        "finding": {
+          "uri": "fixture://fixtures/chronicle_graph-finding.json",
+          "sha256": "60f212aff5c20cd38a29ac29b1958ed7feb81493885e95b4f003616c59eb878a"
+        }
+      },
+      {
+        "component": "decision_ready",
+        "producer_id": "fixture-producer",
+        "adapter_version": "design-0.1.1",
+        "source_commit": "4a1e4d0d373df9d5342e479738e0ebb37b7e676f",
+        "finding": {
+          "uri": "fixture://fixtures/decision_ready-finding.json",
+          "sha256": "d2652c8260421391a218f90ccb2769f58d9c85a66806e076c1a132d00531a648"
+        }
+      }
+    ],
+    "evidence_manifest": {
+      "uri": "fixture://examples/chronicle-evidence.json",
+      "sha256": "aa2eb8add4f2b588df810f90a0082aabe652b15d7d4e082f27733ac40c5a0d70"
+    },
+    "required_approver_role": "pilot_export_approver",
+    "action": {
+      "action_id": "action-export-001",
+      "operation": "EXPORT_VERIFIED_DATASET",
+      "candidate_artifact_id": "candidate-001",
+      "candidate_sha256": "31475a9065853e61c6117db9fa5c1b2a2dd6baf3f5374e217500deb5efcb4d8c",
+      "target_resource": "fixture://pilot-exports/clean.csv",
+      "target_namespace": "pilot-exports",
+      "write_condition": "CREATE_ONLY"
+    }
+  },
+  "canonicalization": "RFC8785",
+  "bound_preconditions_sha256": "9ffeb44457564ffb2fd061c43ec5483f135c7af13d7d29e0980c69eed0b7cc61",
+  "authorization": {
+    "status": "PENDING",
+    "approver": null,
+    "grant_id": null,
+    "grant_proof_ref": null,
+    "signed_payload_sha256": null,
+    "approved_at": null,
+    "expires_at": null
+  },
+  "observation": {
+    "run_id": "not-run-fixture-001",
+    "execution_status": "NOT_ATTEMPTED",
+    "idempotency_key": "case-synthetic-001:1:action-export-001",
+    "gate_decision": "NOT_INVOKED",
+    "gate_reason_codes": [],
+    "effect_assessment": "NOT_OBSERVED",
+    "effect_receipts": [],
+    "task_outcome": "NOT_EVALUATED",
+    "prohibited_attempt_count": null,
+    "confirmed_prohibited_effect_count": null,
+    "false_block_count": null,
+    "human_review_step_count": null
+  }
+}

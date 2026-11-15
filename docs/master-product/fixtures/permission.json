@@ -1,0 +1,14 @@
+{
+  "record_kind": "SYNTHETIC_PERMISSION_FIXTURE",
+  "revision": "1",
+  "allowed_uses": [
+    "internal_analytics"
+  ],
+  "allowed_destinations": [
+    "fixture://pilot-exports/clean.csv"
+  ],
+  "valid_from": "2026-11-15T00:00:00Z",
+  "expires_at": "2026-11-16T00:00:00Z",
+  "revoked": false,
+  "notice": "Synthetic test data and permission record. No real dataset consent is asserted."
+}

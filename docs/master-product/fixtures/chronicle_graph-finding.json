@@ -1,0 +1,6 @@
+{
+  "record_kind": "SIMULATED_FINDING",
+  "component": "chronicle_graph",
+  "status": "NOT_EXECUTED",
+  "note": "Contract fixture only; no component evaluation has run."
+}

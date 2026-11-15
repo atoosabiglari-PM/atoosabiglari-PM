@@ -1,0 +1,12 @@
+{
+  "record_kind": "SYNTHETIC_POLICY_FIXTURE",
+  "policy_id": "pilot-export",
+  "version": "1",
+  "allowed_repairs": [
+    "TRIM_OUTER_WHITESPACE",
+    "REMOVE_EXACT_DUPLICATES"
+  ],
+  "required_approver_role": "pilot_export_approver",
+  "write_condition": "CREATE_ONLY",
+  "external_model_payload": "DISABLED_FOR_FIRST_PILOT"
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "claim_id": "claim-purpose-001",
+    "statement": "The synthetic permission fixture lists internal analytics as an allowed use.",
+    "source": {
+      "uri": "fixture://fixtures/permission.json",
+      "sha256": "72a699bbb4fda5e3d2242509ecb4e4da5d23b265d636daf4f255dcba9371af11"
+    },
+    "source_version": "1",
+    "locator": {
+      "kind": "JSON_POINTER",
+      "value": "/allowed_uses/0"
+    },
+    "relation": "SUPPORTS",
+    "review_status": "UNREVIEWED",
+    "explicit_gaps": [
+      "Fixture demonstrates record structure; it is not a verified real-world permission."
+    ]
+  }
+]

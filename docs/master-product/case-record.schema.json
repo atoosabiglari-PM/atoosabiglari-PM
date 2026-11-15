@@ -1,0 +1,826 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/atoosabiglari-PM/atoosabiglari-PM/main/docs/master-product/case-record.schema.json",
+  "title": "CaseRecord 0.1.1",
+  "description": "Structural contract only. Validation does not authenticate identities, validate grants, enforce policy, prove effects, or authorize execution.",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "0.1.1"
+    },
+    "record_kind": {
+      "enum": [
+        "SYNTHETIC_EXAMPLE",
+        "RUNTIME_RECORD"
+      ]
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "case_state": {
+      "enum": [
+        "DRAFT",
+        "AWAITING_APPROVAL",
+        "AUTHORIZED",
+        "EXECUTING",
+        "SUCCEEDED",
+        "BLOCKED",
+        "FAILED",
+        "UNCERTAIN",
+        "STALE"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "format": "date-time"
+    },
+    "preconditions": {
+      "$ref": "#/$defs/preconditions"
+    },
+    "canonicalization": {
+      "const": "RFC8785"
+    },
+    "bound_preconditions_sha256": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorization": {
+      "$ref": "#/$defs/authorization"
+    },
+    "observation": {
+      "$ref": "#/$defs/observation"
+    }
+  },
+  "required": [
+    "contract_version",
+    "record_kind",
+    "case_id",
+    "revision",
+    "case_state",
+    "created_at",
+    "preconditions",
+    "canonicalization",
+    "bound_preconditions_sha256",
+    "authorization",
+    "observation"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "recordRef": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "sha256": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "uri",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "principal": {
+      "type": "object",
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "credential_evidence_ref": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        }
+      },
+      "required": [
+        "issuer",
+        "subject",
+        "credential_evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "$ref": "#/$defs/recordRef"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "version",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "const": "EXPORT_VERIFIED_DATASET"
+        },
+        "candidate_artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "target_resource": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "target_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "write_condition": {
+          "const": "CREATE_ONLY"
+        }
+      },
+      "required": [
+        "action_id",
+        "operation",
+        "candidate_artifact_id",
+        "candidate_sha256",
+        "target_resource",
+        "target_namespace",
+        "write_condition"
+      ],
+      "additionalProperties": false
+    },
+    "permission": {
+      "type": "object",
+      "properties": {
+        "record": {
+          "$ref": "#/$defs/recordRef"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valid_from": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date-time"
+        },
+        "allowed_purposes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "revocation_lookup_ref": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        }
+      },
+      "required": [
+        "record",
+        "revision",
+        "valid_from",
+        "expires_at",
+        "allowed_purposes",
+        "allowed_destinations",
+        "revocation_lookup_ref"
+      ],
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record": {
+          "$ref": "#/$defs/recordRef"
+        }
+      },
+      "required": [
+        "policy_id",
+        "version",
+        "record"
+      ],
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "enum": [
+            "rights_ready",
+            "data_ready",
+            "chronicle_graph",
+            "decision_ready"
+          ]
+        },
+        "producer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_commit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "finding": {
+          "$ref": "#/$defs/recordRef"
+        }
+      },
+      "required": [
+        "component",
+        "producer_id",
+        "adapter_version",
+        "source_commit",
+        "finding"
+      ],
+      "additionalProperties": false
+    },
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/recordRef"
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "JSON_POINTER",
+                "LINE_RANGE",
+                "SECTION",
+                "CELL_RANGE"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "relation": {
+          "enum": [
+            "SUPPORTS",
+            "CONTRADICTS"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "UNREVIEWED",
+            "REVIEWED",
+            "CONTESTED"
+          ]
+        },
+        "explicit_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "claim_id",
+        "statement",
+        "source",
+        "source_version",
+        "locator",
+        "relation",
+        "review_status",
+        "explicit_gaps"
+      ],
+      "additionalProperties": false
+    },
+    "preconditions": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "case_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "workflow": {
+          "const": "governed_tabular_repair_export"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "initiator": {
+          "$ref": "#/$defs/principal"
+        },
+        "executor": {
+          "$ref": "#/$defs/principal"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          },
+          "minItems": 1
+        },
+        "candidate": {
+          "$ref": "#/$defs/artifact"
+        },
+        "permission": {
+          "$ref": "#/$defs/permission"
+        },
+        "policies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/policy"
+          },
+          "minItems": 1
+        },
+        "domain_findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          },
+          "minItems": 4
+        },
+        "evidence_manifest": {
+          "$ref": "#/$defs/recordRef"
+        },
+        "required_approver_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        }
+      },
+      "required": [
+        "case_id",
+        "case_revision",
+        "workflow",
+        "purpose",
+        "initiator",
+        "executor",
+        "inputs",
+        "candidate",
+        "permission",
+        "policies",
+        "domain_findings",
+        "evidence_manifest",
+        "required_approver_role",
+        "action"
+      ],
+      "additionalProperties": false
+    },
+    "authorization": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PENDING",
+            "APPROVED",
+            "REJECTED",
+            "REVOKED",
+            "STALE"
+          ]
+        },
+        "approver": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/principal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "grant_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "grant_proof_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "format": "uri"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signed_payload_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approved_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "approver",
+        "grant_id",
+        "grant_proof_ref",
+        "signed_payload_sha256",
+        "approved_at",
+        "expires_at"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "APPROVED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "approver": {
+                "$ref": "#/$defs/principal"
+              },
+              "grant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "grant_proof_ref": {
+                "type": "string",
+                "minLength": 1,
+                "format": "uri"
+              },
+              "signed_payload_sha256": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "approved_at": {
+                "type": "string",
+                "minLength": 1,
+                "format": "date-time"
+              },
+              "expires_at": {
+                "type": "string",
+                "minLength": 1,
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "PENDING"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "approver": {
+                "type": "null"
+              },
+              "grant_id": {
+                "type": "null"
+              },
+              "grant_proof_ref": {
+                "type": "null"
+              },
+              "signed_payload_sha256": {
+                "type": "null"
+              },
+              "approved_at": {
+                "type": "null"
+              },
+              "expires_at": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_status": {
+          "enum": [
+            "NOT_ATTEMPTED",
+            "PENDING",
+            "SUCCEEDED",
+            "BLOCKED",
+            "FAILED",
+            "UNCERTAIN"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gate_decision": {
+          "enum": [
+            "NOT_INVOKED",
+            "ALLOW",
+            "BLOCK",
+            "REQUIRE_HUMAN_APPROVAL"
+          ]
+        },
+        "gate_reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "effect_assessment": {
+          "enum": [
+            "NOT_OBSERVED",
+            "OBSERVED",
+            "INCOMPLETE"
+          ]
+        },
+        "effect_receipts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 0
+        },
+        "task_outcome": {
+          "enum": [
+            "NOT_EVALUATED",
+            "SUCCESS",
+            "FAILURE",
+            "UNKNOWN"
+          ]
+        },
+        "prohibited_attempt_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_prohibited_effect_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "false_block_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "human_review_step_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "run_id",
+        "execution_status",
+        "idempotency_key",
+        "gate_decision",
+        "gate_reason_codes",
+        "effect_assessment",
+        "effect_receipts",
+        "task_outcome",
+        "prohibited_attempt_count",
+        "confirmed_prohibited_effect_count",
+        "false_block_count",
+        "human_review_step_count"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "case_state": {
+            "enum": [
+              "AUTHORIZED",
+              "EXECUTING",
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "required": [
+          "case_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "properties": {
+              "status": {
+                "const": "APPROVED"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record_kind": {
+            "const": "SYNTHETIC_EXAMPLE"
+          }
+        },
+        "required": [
+          "record_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "case_state": {
+            "enum": [
+              "DRAFT",
+              "AWAITING_APPROVAL",
+              "BLOCKED",
+              "STALE"
+            ]
+          },
+          "authorization": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "PENDING",
+                  "REJECTED",
+                  "STALE"
+                ]
+              }
+            }
+          },
+          "observation": {
+            "properties": {
+              "execution_status": {
+                "const": "NOT_ATTEMPTED"
+              },
+              "gate_decision": {
+                "const": "NOT_INVOKED"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

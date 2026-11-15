@@ -1,0 +1,6 @@
+{
+  "record_kind": "SIMULATED_FINDING",
+  "component": "data_ready",
+  "status": "NOT_EXECUTED",
+  "note": "Contract fixture only; no component evaluation has run."
+}
