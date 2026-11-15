@@ -1,5 +1,7 @@
 # Master Product — Complete Meeting Minutes and Product Plan
 
+> **Superseded first-pilot decision — November 15, 2026:** Atoosa replaced the CSV repair/export first pilot with a conversational research and agent-evaluation platform based on the actual fifty ChronicleGraph questions. The [Master Product Plan version 2.0](master-product/README.md) is the operative direction. Workflow A and priority statements below are preserved as meeting history, not current instructions. Its useful engineering remains an optional DataReady workflow.
+
 Public review copy for Atoosa, Gemini, Grok and other readers. The meeting record is self-contained. Some underlying project sources remain private; the relevant findings and proposals are included here. Publication of these minutes does not grant access to private repositories or research archives.
 
 **Meeting minutes and product planning record — revision 3.** Discussion: November 14, 2026, Pacific; revised November 15, 2026, UTC. Founder and decision owner: Atoosa Biglari. Gemini and Grok supplied reviews shared by Atoosa; ChatGPT synthesized the discussion and earlier checks of project materials. This revision incorporates Atoosa's clarification that all current discussion belongs to the master product, regardless of Apollo participation. Confirmed directions and proposed technical decisions are identified separately. The final planning package consolidates the subsequent Gemini/Grok refinements; it specifies Workflow A as the first integrated pilot.

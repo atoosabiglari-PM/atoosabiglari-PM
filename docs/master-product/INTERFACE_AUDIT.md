@@ -1,50 +1,60 @@
-# Initial interface and data-boundary audit
+# Component interface and boundary audit — conversational platform
 
-Read-only source inspection on November 15, 2026. This is an initial interface map, not a complete security audit or a live deployment verification.
+Source inspection and branch checks: November 15, 2026. This is a bounded code/interface audit, not a complete security audit or verification of deployed behavior. The current four branch heads match the inspected revisions. The [master plan](README.md) owns product priorities; the [historical export audit](workflows/data-export/INTERFACE_AUDIT.md) is preserved for its optional workflow.
 
-## Inspected versions and integration gaps
+## Inspected interfaces
 
-| Component | Inspected commit | Concrete reuse point | Pilot gap |
+| Component | Inspected commit | Concrete reuse | Current platform gap |
 | --- | --- | --- | --- |
-| DataReady | b77ece50b2a79a24ab093b3f5a53d0e39cd64cc3 | app/services/authorization.py: authorize_repair_plan; app/services/executor.py: prepare_execution_context and execute_repair_plan; app/services/lineage.py | Map existing policy/repair objects to the case contract; bind export to the authenticated grant and ensure all export routes pass the gate |
-| RightsReady | a8d9e2d6c2d494b9d958d8347d13c28fb46c0c0c | src/clearance_engine.py: ClearanceEngine.evaluate; src/rightsready_pipeline.py: RightsReadyPipeline.process | Existing inputs are production/assets/licenses/asset_usage. Define explicit dataset-purpose/recipient/retention semantics; never infer general dataset consent from media clearance |
-| DecisionReady | 4a1e4d0d373df9d5342e479738e0ebb37b7e676f | src/decisionready/decision_lifecycle.py: apply_human_decision; src/decisionready/baseline.py: promote_approved_change | Map tabular changes to review requirements, add durable shared case state and verified approver identity, preserve distinction between approval and execution result |
-| SafetyGate | f80f64f70316f47df154dd70e3327c4226fd7f37 | backend/app/services/trusted_workflow.py: run_oidc_governed_workflow; core/identity/principal.py: build_verified_principal; core/authorization/execution_store.py: claim_execution_record and mark_stale_pending_uncertain | Configure the application's production identity boundary; bind human delegation, full preconditions and a real export adapter; test destination effects and recovery |
-| ChronicleGraph | No implementation repository established by this inspection | Existing research specification; concrete evidence structure supplied in this package | Implement a minimal writer/reader and source authorization; do not relabel DecisionReady's graphs as ChronicleGraph |
-| Gemma Research | Existing study, not re-audited in this source pass | Separate attempt/effect/task-outcome measurement discipline | Build pilot-specific observers and labels; do not report the 96-episode study as pilot execution evidence |
+| DataReady | `b77ece50b2a79a24ab093b3f5a53d0e39cd64cc3` | `app/services/authorization.py`: `authorize_repair_plan`; `executor.py`: `prepare_execution_context`, `execute_repair_plan`; `lineage.py` | Conditional quality findings and source-preserving correction adapters; no mandatory tabular input for a question |
+| RightsReady | `a8d9e2d6c2d494b9d958d8347d13c28fb46c0c0c` | `src/clearance_engine.py`: `ClearanceEngine.evaluate`; `src/rightsready_pipeline.py`: `RightsReadyPipeline.process` | Extend media production/assets/licenses/asset_usage semantics to source access, purpose, processors, recipients, retention and unknown permissions |
+| DecisionReady | `4a1e4d0d373df9d5342e479738e0ebb37b7e676f` | `src/decisionready/decision_lifecycle.py`: `apply_human_decision`; `baseline.py`: approved promotion | Durable multi-user research case/finding versions, objections, independent review, role-bound approval and material-evidence invalidation |
+| SafetyGate | `f80f64f70316f47df154dd70e3327c4226fd7f37` | `backend/app/core/admission/engine.py`: `evaluate_admission`; `api/agents.py`: registration/admission; `services/trusted_workflow.py`; identity helpers; execution store | Controlled behavioral evaluation and actionable reassessment, research-case adapters, LLM human-rights concerns/independent review, production identity binding and observed incident reconstruction |
+| ChronicleGraph | No implemented research repository established by this audit | Actual fifty-question workbook/protocol; existing research specification; synthetic source-anchor record | Full question-to-evidence workflow, typed lineage, retrieval/citations, contradictions/unknowns, revision and challenge integration |
+| Gemma Research | Prior bounded study; not rerun in this audit | Separate task/attempt/effect methodology | Research-specific oracles, new platform observations and reports; no inherited performance claim |
 
-### Important findings
+## Findings that affect the implementation
 
-- DataReady's execution context checks source hashes, source/output separation, approved actions and column alignment. These are useful controls, but are not proof that a new cross-component export is identity-bound.
-- RightsReady intentionally permits structurally trusted records with clearance gaps to be ingested for review. Its trusted-ingestion status must not become permission for an unrelated export. Its clearance engine also needs nonempty applicable-use coverage enforced by the new adapter.
-- DecisionReady checks change identity and readiness before approved baseline promotion. Its README describes a single-session prototype with persistent multi-user storage still beyond that build.
-- SafetyGate's identity helper keys trusted role assignments by issuer and subject. Its execution store persists claims and marks stale pending attempts uncertain. Its README explicitly says the implemented OIDC path is not yet bound to a specific production identity provider at the application API boundary.
-- No claim is made that these APIs already accept CaseRecord 0.1.2 or that all export paths are covered.
+- DataReady validates source hashes, supported repairs, source/output separation and action/column alignment. Reuse those controls for relevant data; they do not establish a research answer’s correctness or cross-component action authority.
+- RightsReady permits structurally trusted records with clearance gaps to enter review. Trusted ingestion is not onward-use permission. Require nonempty applicable-use coverage; do not accept a vacuous CLEARED result when no relevant use was checked.
+- DecisionReady checks readiness/change identity before approved promotion. Its existing single-session prototype does not prove durable collaborative review or cryptographically bound reviewer identity.
+- SafetyGate admission checks declared ownership, purpose, jurisdiction, tools, permission requirements and approval declarations. The inspected tests exercise those declaration checks. They do **not** run an agent to establish how it behaves. Keep admission and controlled behavioral results distinct in API and UI.
+- SafetyGate registration records configuration/version hashes. Existing passport, MCP, OIDC/role, runtime authorization and execution-journal primitives are reusable. The README explicitly identifies the missing production identity-provider binding at the application API boundary. Endpoint integration still needs object-level authorization and real tests; a declaration of `owner_identity` is not verified identity.
+- Its execution store claims durable actions and marks stale pending actions UNCERTAIN. Destination effects, reconciliation and cross-service incident joins must be verified per adapter, not inferred from ledger existence.
+- No dedicated LLM human-rights assessment/independent appeal flow was established by this source pass. This is required new work, not an already verified module.
+- None of the named existing APIs is assumed to accept the new platform case contract. Narrow authenticated adapters must preserve each component’s authority and status distinctions.
 
-## P0 boundary inventory
+## Exact SafetyGate admission evidence
 
-Populate actual recipients, record versions and permission evidence during adapter implementation. The only demonstrated data flows in this package are local synthetic fixture reads.
+Inspected at the pinned commit: `backend/app/core/admission/engine.py`, `backend/app/api/agents.py`, `backend/app/schemas/admission.py`, `backend/tests/test_admission_engine.py` and `README.md`. The admission engine emits PASS/FAIL/NON_OVERRIDABLE_FAIL from declarations. Registration/admission endpoints store agent/version and admission status. Existing source tests were read, not executed as integrated platform tests during this documentation revision.
 
-| Boundary | What crosses | Intended purpose | Required evidence or restriction |
+## Boundary inventory and owners
+
+| Boundary | Owner | Data / purpose | Acceptance proof |
 | --- | --- | --- | --- |
-| User to isolated staging | Input CSV and permission/source references | Audit and permitted candidate preparation | Data owner/purpose, retention and access scope; preserve source bytes |
-| Staging to RightsReady adapter | Permission metadata and applicable use/destination | Determine recorded scope | Applicable dataset terms; missing relevant conditions go to review/block |
-| Staging to DataReady | Allowed tabular bytes and repair rules | Audit and constrained repair | Source-preserving trial permission; supported transformations only |
-| Any component to external model | Minimized audit evidence or proposal context | Optional repair proposal | First pilot disabled; require explicit permitted recipient, purpose, retention and data minimization before enabling |
-| Evidence store to ChronicleGraph/reviewer | Claims, source references and authorized excerpts | Trace and inspect evidence | Source-access and excerpt permissions; no unrestricted source download |
-| DecisionReady to grant service | Exact proposal digest and authenticated human decision | Issue scoped approval | Trusted identity/role, approved action and actor, validity interval |
-| Grant service to SafetyGate | Protected proof reference and immutable binding | Check current execution authority | Trusted signature, actor/audience/scope, time, revocation and live version checks |
-| Export adapter to destination | Approved candidate bytes | Create the permitted output once | Exact recipient/destination and content; conditional write; durable action claim |
-| Runtime to audit/evaluation | IDs, versions, outcomes and minimized effect evidence | Accountability and measurement | Retention, access control and redaction; never log bearer credentials |
-| Component code to integration environment | Pinned code and dependencies | Implement the pilot | Record license/notice and provenance per version; no blanket relicensing |
+| Typed/voice question and optional attachments | Workspace | Preserve source and conversation; audio/transcript consent/retention | AC-01, 04, 06 |
+| Selected web/Google source | Resolver + RightsReady | Authorized retrieval and versioned use terms; exact selected item and processor | AC-03, 06, 07, 17 |
+| Evidence to model/OCR/transcription/search | Resolver + SafetyGate | Minimized permitted context; authorize destination/purpose before transmission | AC-06, 07, 11, 17 |
+| Evidence to research/quality/rights adapters | Domain components | Separate findings and authorized access; preserve originals | AC-03, 04, 07, 08 |
+| Objections and official finding review | DecisionReady | Versioned challenge, response, readiness, role-bound review and appeal | AC-05, 12, 13 |
+| Developer agent to controlled runner | SafetyGate | Authorized endpoint/package; admission and observed tests; scoped credentials | AC-09, 10, 17 |
+| Minimized evidence to rights model/reviewer | SafetyGate + independent reviewer | Advisory concerns, uncertainty, recourse and no grant authority | AC-13 |
+| Approval/grant to live tool boundary | SafetyGate | Current actor/action/data/purpose/destination binding | AC-11, 12, 14 |
+| Execution records to incident/research reports | Authorized observer/reviewer | Actual effects, gaps, recipient distinction and separate metrics | AC-15, 16, 18 |
 
-## License record
+Before enabling each live boundary, name actual processor/recipient, owner, source version, permission basis, retention and revocation path. Tests use public or synthetic material unless separately authorized. No credentials, raw private records or code from private repositories are published by this audit.
 
-The LICENSE file at each of the four inspected code commits names PolyForm Noncommercial 1.0.0. Their READMEs also preserve earlier Apache-2.0 releases. SafetyGate's README contains a legacy Apache heading as well as the later PolyForm section: reconcile this documentation inconsistency against the specific version and licensing records before packaging. The separate Gemma public study retains its own scoped release terms.
+## License inventory
 
-This is an inventory of observed declarations, not a conclusion that every combined commercial use is cleared. Review actual ownership, third-party material, historical grants and intended distribution for the pilot. No source license, repository visibility or private archive is changed by this plan.
+The LICENSE files at the four code commits name PolyForm Noncommercial 1.0.0. Their READMEs preserve earlier Apache-2.0 releases. SafetyGate’s README has a legacy Apache heading alongside the later PolyForm section; consult version-specific licensing records before packaging. The public Gemma study has its own scoped release terms; the profile repository’s documentation terms remain separate.
 
-## Sources
+This records observed declarations, not blanket commercial permission or a legal conclusion about the combined product. Preserve existing notices, contributor/third-party rights and private archives. No license or repository visibility is changed. Actual corpus images, translations, interview recordings and model-processing rights require asset-level inventory even where a source webpage is accessible.
 
-Inspected at the commits above: the four repositories' README and LICENSE files plus the named source files. Private source links remain subject to their existing access controls. The findings needed for this plan are summarized here; private source code is not reproduced.
+## Supporting repositories
 
+- [DataReady, pinned source](https://github.com/atoosabiglari-PM/dataready-autopilot/tree/b77ece50b2a79a24ab093b3f5a53d0e39cd64cc3)
+- [RightsReady, pinned source](https://github.com/atoosabiglari-PM/rightsready/tree/a8d9e2d6c2d494b9d958d8347d13c28fb46c0c0c)
+- [DecisionReady, pinned source](https://github.com/atoosabiglari-PM/decisionready/tree/4a1e4d0d373df9d5342e479738e0ebb37b7e676f)
+- [SafetyGate, pinned source](https://github.com/atoosabiglari-PM/safetygate/tree/f80f64f70316f47df154dd70e3327c4226fd7f37)
+
+Private source links remain access-controlled. Summarizing interfaces here does not make those repositories public.
